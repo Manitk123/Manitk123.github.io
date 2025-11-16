@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EduSphere — LMS Mini-Portal</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="app-header">
+  <img src="logo2.png" alt="EduSphere logo" class="brand-logo" />
+  <h1>EduSphere</h1>
+
+  <nav id="app-nav" class="nav">
+    <button id="nav-login"  class="nav-btn" onclick="manit_showView('login')">Login</button>
+    <button id="nav-logout" class="nav-btn hidden" onclick="manit_logout()">Logout</button>
+
+    <button class="nav-btn" onclick="manit_showView('catalog')">Courses</button>
+    <button class="nav-btn" onclick="manit_showView('leaderboard')">Leaderboard</button>
+    <button id="nav-theme" class="nav-btn" onclick="manit_toggleTheme()">Light</button>
+    <button class="nav-btn" onclick="manit_showView('profile')">Profile</button>
+  </nav>
+</header>
+
+
+  <main>
+    <!-- Page 1: Login -->
+    <section id="view-login" class="view">
+      <div class="card">
+        <h2>Login & Onboarding</h2>
+        <form id="login-form" onsubmit="manit_handleLogin(event)">
+          <label>Username
+            <input type="text" id="username" placeholder="min 4 characters" autocomplete="username" required />
+          </label>
+          <label>Email
+            <input type="email" id="email" placeholder="you@example.com" autocomplete="email" required />
+          </label>
+          <label>Password
+            <input type="password" id="password" placeholder="min 6 characters" autocomplete="current-password" minlength="6" required />
+          </label>
+          <button type="submit" class="primary">Enter EduSphere</button>
+        </form>
+      </div>
+    </section>
+
+<!-- Page 2: Catalog -->
+<section id="view-catalog" class="view hidden">
+
+  <!-- Daily streak card -->
+  <div id="streak-banner" class="streak-card hidden">
+    <div class="streak-main">
+      <div class="streak-icon">❄️</div>
+      <div class="streak-text">
+        <div class="streak-title">
+          <span id="streak-current">0</span> Day Streak
+        </div>
+        <div id="streak-description" class="streak-subtitle">
+          Complete a quiz to start your streak.
+        </div>
+        <div class="streak-stats-row">
+          <div class="streak-stat">
+            <span class="stat-icon">🏆</span>
+            <span class="stat-value" id="streak-best">0</span>
+            <span class="stat-label">Longest streak</span>
+          </div>
+          <div class="streak-stat">
+            <span class="stat-icon">📅</span>
+            <span class="stat-value" id="streak-total">0</span>
+            <span class="stat-label">Active days</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="streak-actions">
+      <button class="primary streak-btn" type="button" onclick="manit_openStreakModal()">
+        📊 Streaks
+      </button>
+    </div>
+  </div>
+
+  <!-- Catalog controls -->
+  <div class="catalog-controls sticky">
+    <h2>Course Catalog</h2>
+    <div class="filters">
+      <label>Category
+        <select id="filter-category" onchange="manit_filterCourses()">
+          <option value="All">All</option>
+          <option value="Tech">Tech</option>
+          <option value="Creative">Creative</option>
+          <option value="Business">Business</option>
+        </select>
+      </label>
+    </div>
+  </div>
+
+  <!-- Courses grid -->
+  <div id="course-grid" class="grid"></div>
+</section>
+
+
+
+    <!-- Page 3: Course Overview -->
+    <section id="view-course" class="view hidden">
+      <div class="card">
+        <h2 id="course-title">Course Title</h2>
+        <p id="course-desc">Overview will load here.</p>
+        <p id="course-instructor"></p>
+
+        <!-- Download links etc -->
+        <div id="course-resources" class="list"></div>
+
+        <!-- Course path -->
+        <ol id="course-outline" class="outline"></ol>
+
+        <!-- Study notes shortcuts -->
+        <div id="course-notes" class="list"></div>
+
+        <!-- Progress + actions -->
+        <p id="course-progress-msg" class="course-progress-msg"></p>
+        <div class="actions">
+          <button class="secondary" onclick="manit_showView('catalog')">Back to Courses</button>
+          <button id="start-quiz-btn" class="primary" onclick="manit_startQuiz()" disabled>Start Quiz</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page: Profile -->
+<section id="view-profile" class="view hidden">
+  <div class="card profile-card">
+    <h2>Your Profile</h2>
+    <p class="profile-subtitle">Manage your EduSphere account details.</p>
+
+    <div class="profile-row">
+      <div class="profile-avatar">
+        <span id="profile-avatar-initials">ES</span>
+      </div>
+      <div class="profile-main">
+        <div class="profile-name" id="profile-name-display">Guest</div>
+        <div class="profile-email" id="profile-email-display">Not signed in</div>
+        <div class="profile-meta" id="profile-meta-display">Member since —</div>
+      </div>
+    </div>
+
+    <hr class="profile-divider" />
+
+        <!-- Quiz summary stats -->
+    <div class="profile-metrics">
+      <div class="metric-card">
+        <div class="metric-value" id="profile-metric-quizzes">0</div>
+        <div class="metric-label">Quizzes Taken</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value" id="profile-metric-avg">0%</div>
+        <div class="metric-label">Average Score</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value" id="profile-metric-best">0%</div>
+        <div class="metric-label">Best Score</div>
+      </div>
+    </div>
+
+
+
+<form id="profile-form" onsubmit="manit_saveProfile(event)">
+  <div class="profile-grid">
+    <label>Username
+      <input type="text" id="profile-username" required minlength="4" />
+    </label>
+
+    <label>Email
+      <input type="email" id="profile-email" required />
+    </label>
+
+    <label>Full name
+      <input type="text" id="profile-fullname" placeholder="Optional" />
+    </label>
+
+    <label>Bio
+      <textarea id="profile-bio" rows="3" placeholder="Tell us a bit about yourself"></textarea>
+    </label>
+
+    <!-- NEW: avatar upload (full width) -->
+    <label class="profile-avatar-upload">
+      Profile picture (max 200 KB)
+      <input type="file"
+             id="profile-avatar-file"
+             accept="image/*"
+             onchange="manit_handleAvatarChange(event)" />
+      <span class="profile-avatar-hint">Square images work best; stored locally in this browser only.</span>
+    </label>
+  </div>
+
+  <div class="actions">
+    <button type="submit" class="primary">Save changes</button>
+    <button type="button" class="secondary" onclick="manit_resetProfileForm()">Reset</button>
+  </div>
+</form>
+
+  </div>
+</section>
+
+
+    <!-- Page 4: Quiz -->
+    <section id="view-quiz" class="view hidden">
+      <div class="card">
+        <div class="quiz-header">
+          <h2 id="quiz-title">Quiz</h2>
+          <p id="quiz-course"></p>
+        </div>
+        <form id="quiz-form"></form>
+        <div id="quiz-feedback" class="quiz-feedback hidden"></div>
+        <div class="actions">
+          <button class="secondary" onclick="manit_showView('catalog')">Return to Courses</button>
+          <button class="danger" onclick="manit_logout()">Logout</button>
+          <button class="primary" onclick="manit_submitQuiz()">Submit Quiz</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page 5: Leaderboard -->
+    <section id="view-leaderboard" class="view hidden">
+      <div class="card">
+        <h2>Leaderboard</h2>
+        <p class="leaderboard-subtitle">
+          Earn points by scoring in course quizzes. Higher scores = more points.
+        </p>
+        <ol id="leaderboard-list" class="leaderboard-list"></ol>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal: messages + rich notes -->
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-content" id="modal-content">
+      <h3 id="modal-title">Message</h3>
+      <p id="modal-body"></p>
+      <button class="primary" onclick="manit_closeModal()">OK</button>
+    </div>
+  </div>
+
+<footer class="app-footer">
+  <small>© EduSphere | Manit Kumar</small>
+</footer>
+
+  <!-- Right-side Streak panel -->
+<div id="streak-panel" class="streak-panel hidden" aria-label="Streak Calendar">
+  <div class="streak-panel-inner" id="streak-panel-inner"></div>
+</div>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
