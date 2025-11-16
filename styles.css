@@ -992,3 +992,123 @@ a,button,input,select{
     grid-template-columns:1fr;
   }
 }
+
+/* -------- Mobile & tablet tweaks -------- */
+
+/* Up to tablets (~768px) */
+@media(max-width:768px){
+
+  /* header + nav spacing */
+  .app-header{
+    padding:0 12px;
+  }
+
+  .app-header h1{
+    font-size:20px;
+  }
+
+  .nav{
+    gap:6px;
+  }
+
+  .nav-btn{
+    padding:6px 9px;
+    font-size:13px;
+  }
+
+  /* main layout a bit tighter */
+  main{
+    max-width:100%;
+    margin:18px auto;
+    padding:0 12px;
+  }
+
+  /* streak card: stack text + button nicely */
+  .streak-card{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .streak-actions{
+    width:100%;
+    display:flex;
+    justify-content:flex-end;
+    margin-top:8px;
+  }
+
+  /* catalog header: stack title and filter */
+  .catalog-controls{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+  }
+
+  .catalog-controls h2{
+    padding:4px 8px;
+    font-size:18px;
+  }
+
+  .catalog-controls .filters{
+    width:100%;
+    justify-content:space-between;
+  }
+
+  .catalog-controls .filters label{
+    width:100%;
+  }
+
+  .catalog-controls .filters select{
+    width:100%;
+  }
+
+  /* cards a bit tighter on small screens */
+  .card{
+    padding:18px 14px;
+  }
+
+  .course{
+    padding:14px;
+  }
+
+  .course h3{
+    font-size:16px;
+  }
+
+  .course-progress-msg{
+    font-size:13px;
+  }
+}
+
+/* Very small phones (~480px and below) */
+@media(max-width:480px){
+
+  .app-header h1{
+    font-size:18px;
+  }
+
+  .nav-btn{
+    padding:5px 7px;
+    font-size:12px;
+  }
+
+  .streak-title{
+    font-size:14px;
+  }
+
+  .streak-subtitle,
+  .streak-stat{
+    font-size:12px;
+  }
+
+  .profile-card{
+    padding:18px 14px;
+  }
+
+  .profile-name{
+    font-size:16px;
+  }
+
+  .metric-value{
+    font-size:18px;
+  }
+}
