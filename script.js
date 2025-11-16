@@ -406,6 +406,13 @@ function manit_updateNavAuth(){
   if (navLogout) navLogout.classList.toggle("hidden", !loggedIn);
 }
 
+function manit_toggleNav(){
+  const nav = document.getElementById("app-nav");
+  if(!nav) return;
+  nav.classList.toggle("is-open");
+}
+
+
 /* Theme toggle */
 function manit_applyTheme(theme){
   const body = document.body;

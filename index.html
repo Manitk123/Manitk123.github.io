@@ -12,15 +12,26 @@
   <h1>EduSphere</h1>
 
   <nav id="app-nav" class="nav">
-    <button id="nav-login"  class="nav-btn" onclick="manit_showView('login')">Login</button>
-    <button id="nav-logout" class="nav-btn hidden" onclick="manit_logout()">Logout</button>
+    <!-- hamburger for mobile -->
+    <button class="nav-toggle" type="button" aria-label="Toggle navigation"
+            onclick="manit_toggleNav()">
+      ☰
+    </button>
 
-    <button class="nav-btn" onclick="manit_showView('catalog')">Courses</button>
-    <button class="nav-btn" onclick="manit_showView('leaderboard')">Leaderboard</button>
-    <button id="nav-theme" class="nav-btn" onclick="manit_toggleTheme()">Light</button>
-    <button class="nav-btn" onclick="manit_showView('profile')">Profile</button>
+    <!-- actual nav buttons -->
+    <div class="nav-links">
+      <button id="nav-login"  class="nav-btn" onclick="manit_showView('login')">Login</button>
+      <button id="nav-logout" class="nav-btn hidden" onclick="manit_logout()">Logout</button>
+
+      <button class="nav-btn" onclick="manit_showView('catalog')">Courses</button>
+      <button class="nav-btn" onclick="manit_showView('leaderboard')">Leaderboard</button>
+      <button id="nav-theme" class="nav-btn" onclick="manit_toggleTheme()">Light</button>
+      <button class="nav-btn" onclick="manit_showView('profile')">Profile</button>
+    </div>
   </nav>
 </header>
+
+
 
 
   <main>
